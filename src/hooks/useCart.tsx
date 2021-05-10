@@ -36,6 +36,10 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       const { data } = await api.get('/products');
       const product = data.find((productInArray: Product) => productInArray.id === productId);
 
+      if (!product) {
+        throw('Erro na alteração de quantidade do produto');
+      }
+
       const stockApi = await api.get('/stock');
       const stockProduct = await stockApi.data.find((stockInAttay: Stock) => stockInAttay.id === productId);
 
